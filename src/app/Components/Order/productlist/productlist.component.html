@@ -1,0 +1,74 @@
+<div>
+    <select class="form-control" [(ngModel)]="selectitem">
+        <option *ngFor="let item of category" [value]="item.ID">{{item.name}}</option>
+
+    </select>
+</div>
+<!-- <div class="text-secondary">
+    <label>{{selectitem}}</label>
+     <input type="text" value={{catnumber}}> 
+    <button (click)="onchange()">change select</button>
+
+</div> -->
+<!-- <div class="col-5" *ngFor="let item of productlist">
+  <ul>
+    <li >
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" [src]="item.imgUrl" alt="log">
+            <div class="card-body">
+               <label [value]="item.name"></label> 
+               <h3>{{item.Id}}</h3>
+               <h3>{{item.name}}</h3>
+               <h3 [style.background-color]="item.price>12000?'red':'blue' "> {{item.price}}</h3>
+               <h3 [class.bg-warning]="item.quantity==10">{{item.quantity}}</h3>
+                <input #count type="number" class="form-control"/> <!-- template count 
+               <button class="btn-primary" (click)="buy(item.price,count.value)">buy</button>
+            </div>
+          </div>
+        
+    </li>
+</ul>
+</div> -->
+<!-- <label>{{sum}}</label> -->
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">name</th>
+            <th scope="col">quantity</th>
+            <th scope="col">Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- <ng-container *ngFor="let product of productlist,let count= index">
+        <tr *ngIf="product.categoryID==selectitem"> -->
+        <!-- <tr *ngFor="let product of productlist; let count=index;trackBy:proTruckBy"
+            [style.background-color]="product.quantity<=10?'red':'yellow'"
+            [class.d-none]="product.categoryID!=selectitem"> -->
+       <ng-container *ngFor="let product of productlist,let count= index">
+        <tr *ngIf="product.categoryID==selectitem" [ngClass]="{'bg-warning':product.quantity==1,'bg-success':product.quantity>=5}"> 
+            <td>{{count}}</td>
+            <td>{{product.name}}</td>
+            <td>
+                <!-- <div *ngIf="product.quantity>10">
+                {{product.quantity}}
+               </div>
+               <div *ngIf="product.quantity<=10">
+                out of stock
+            </div> -->
+            <!-- <div *ngIf="product.quantity>10;else outofstock">{{product.quantity}}</div>
+            <ng-template #outofstock>out of stock</ng-template> -->
+            <ng-container [ngSwitch]="product.quantity">
+             <div *ngSwitchCase="1">last item</div>
+             <div *ngSwitchCase="2">last two item</div>
+             <div *ngSwitchCase="3">last three item</div>
+             <div *ngSwitchDefault>{{product.quantity}}</div>
+            </ng-container>
+            </td>
+            <td><img LightBox color="pink" [src]="product.imgUrl" /></td>
+        </tr>
+        </ng-container>
+
+    </tbody>
+</table>
